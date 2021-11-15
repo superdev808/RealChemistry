@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# About App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is an application to display a list of all current images on the New Jersey Page with the username of the account that uploaded each image.
+
+# Project Summary
+
+This project is built by create-react-app.
 
 ## Available Scripts
 

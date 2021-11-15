@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { loadImagesFromWiki } from "./api";
+import WikiImage from "./WikiImage";
+import "./App.css";
 
 function App() {
+  const [images, setImages] = useState([]);
+
+  const loadImagesWithTitle = async () => {
+    const response = await loadImagesFromWiki({ titles: "New Jersey" });
+
+    if (response && response.query) {
+      setImages(Object.values(response.query.pages));
+    }
+  };
+
+  useEffect(() => {
+    loadImagesWithTitle();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="image-list">
+      {images.length ? (
+        images.map((image, index) => <WikiImage key={index} {...image} />)
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
